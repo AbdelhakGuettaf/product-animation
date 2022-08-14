@@ -6,6 +6,7 @@ import {
   ThreeDimRectangle,
   RevRec,
 } from "../assets/svgs.js";
+import redChair from "../assets/red-chair.png";
 
 export default function AnimatedCarousel() {
   const [rotation, rotate] = useState(0);
@@ -13,11 +14,13 @@ export default function AnimatedCarousel() {
     {
       container: { transform: `rotate(${rotation}deg)` },
       orbitOne: { transform: `rotate(${rotation}deg)` },
+      orbitItem: { transform: `rotate(${rotation - 90}deg)` },
       background: { backgroundPosition: "0% 0%" },
     },
     {
       container: { transform: `rotate(${rotation}deg)` },
       orbitOne: { transform: `rotate(${rotation}deg)` },
+      orbitItem: { transform: `rotate(${rotation - 90}deg)` },
       background: { backgroundPosition: "34% 16%" },
     },
   ];
@@ -28,6 +31,19 @@ export default function AnimatedCarousel() {
     changePosition((prevState) =>
       prevState < styles.length - 1 ? prevState + 1 : 0
     );
+  };
+  const animateIn = (time) => {
+    if (time === null) return;
+    return {
+      item: { animation: `counterRotate ${time}ms ease-in-out forwards` },
+      orbit: { animation: `itemOrbitOut ${time}ms ease-in-out forwards` },
+    };
+  };
+  const animateOut = (time) => {
+    return {
+      item: { animation: `counterRotateOut ${time}ms ease  forwards` },
+      orbit: { animation: `itemOrbit ${time}ms ease  forwards` },
+    };
   };
   return (
     <div>
@@ -75,6 +91,23 @@ export default function AnimatedCarousel() {
             >
               {Sphere()}
             </div>
+          </div>
+        </div>
+        <div id="furn-container">
+          <div
+            style={
+              position === 1 ? animateIn(1000).orbit : animateOut(900).orbit
+            }
+            id="item-container"
+          >
+            <img
+              style={
+                position === 1 ? animateIn(1000).item : animateOut(900).item
+              }
+              id="red-chair"
+              src={redChair}
+              alt="Red Chair Illustration"
+            />
           </div>
         </div>
       </div>
