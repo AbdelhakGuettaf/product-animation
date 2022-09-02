@@ -12,14 +12,14 @@ export default function AnimatedCarousel() {
   const [rotation, rotate] = useState(0);
   const styles = [
     {
-      container: { transform: `rotate(${rotation}deg)` },
-      orbitOne: { transform: `rotate(${rotation}deg)` },
+      container: { transform: `rotate(${rotation * 2}deg)` },
+      orbitOne: { transform: `rotate(${rotation * 2}deg)` },
       orbitItem: { transform: `rotate(${rotation - 90}deg)` },
       background: { backgroundPosition: "0% 0%" },
     },
     {
-      container: { transform: `rotate(${rotation}deg)` },
-      orbitOne: { transform: `rotate(${rotation}deg)` },
+      container: { transform: `rotate(${rotation * 2}deg)` },
+      orbitOne: { transform: `rotate(${rotation * 2}deg)` },
       orbitItem: { transform: `rotate(${rotation - 90}deg)` },
       background: { backgroundPosition: "34% 16%" },
     },
@@ -28,21 +28,23 @@ export default function AnimatedCarousel() {
   const divRef = useRef(null);
   const Click = () => {
     rotate(rotation + 180);
-    changePosition((prevState) =>
-      prevState < styles.length - 1 ? prevState + 1 : 0
-    );
+    changePosition((prevState) => (prevState < 1 ? prevState + 1 : 0));
   };
   const animateIn = (time) => {
     if (time === null) return;
     return {
-      item: { animation: `counterRotate ${time}ms ease-in-out forwards` },
-      orbit: { animation: `itemOrbitOut ${time}ms ease-in-out forwards` },
+      item: { animation: `counterRotate ${time}ms ease-in forwards` },
+      orbit: {
+        animation: `itemOrbitOut ${time * 0.8}ms  ease-in-out forwards`,
+      },
     };
   };
   const animateOut = (time) => {
     return {
       item: { animation: `counterRotateOut ${time}ms ease  forwards` },
-      orbit: { animation: `itemOrbit ${time}ms ease  forwards` },
+      orbit: {
+        animation: `itemOrbit ${time * 2.5}ms 100ms linear  forwards`,
+      },
     };
   };
   return (
@@ -65,7 +67,7 @@ export default function AnimatedCarousel() {
             <div id="rec_bg" style={styles[position].background}></div>
           </div>
         </div>
-        <div id="orbit-container" style={styles[position].orbitContainer}>
+        <div id="orbit-container" style={styles[position].container}>
           <div
             style={{
               ...styles[position].orbitOne,
@@ -96,13 +98,13 @@ export default function AnimatedCarousel() {
         <div id="furn-container">
           <div
             style={
-              position === 1 ? animateIn(1000).orbit : animateOut(900).orbit
+              position === 1 ? animateIn(1000).orbit : animateOut(600).orbit
             }
             id="item-container"
           >
             <img
               style={
-                position === 1 ? animateIn(1000).item : animateOut(900).item
+                position === 1 ? animateIn(600).item : animateOut(200).item
               }
               id="red-chair"
               src={redChair}

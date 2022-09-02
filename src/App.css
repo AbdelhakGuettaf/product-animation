@@ -74,7 +74,7 @@
 #orbit-container {
   width: 400px;
   height: 400px;
-  animation: OrbitOne 12s ease-in-out;
+  animation: OrbitOne 12s ease-in-out infinite;
   animation-fill-mode: forwards;
   position: relative;
   top: -115%;
@@ -97,6 +97,9 @@
 }
 #item-container {
   height: 100%;
+  width: 0;
+  margin-left: 50px;
+  rotate: -90deg;
 }
 #red-chair {
   transform: scaleX(-1);
@@ -109,36 +112,36 @@
   position: relative;
   rotate: 0deg;
   top: -215%;
-  left: -20%;
+  left: 0;
   height: 120%;
-  width: 400px;
-  border: red solid 1px;
+  width: 800px;
+  overflow: hidden;
 }
 @keyframes itemOrbit {
   0% {
-    rotate: 0deg;
+    rotate: -90deg;
   }
-  80% {
-    rotate: 85deg;
+  30% {
+    rotate: 65deg;
   }
   100% {
-    rotate: 100deg;
+    rotate: 70deg;
   }
 }
 @keyframes itemOrbitOut {
   0% {
-    rotate: 100deg;
+    rotate: 70deg;
   }
   100% {
-    rotate: 260deg;
+    rotate: 200deg;
   }
 }
 @keyframes counterRotate {
   from {
-    rotate: 0deg;
+    rotate: -80deg;
   }
   to {
-    rotate: -90deg;
+    rotate: -260deg;
   }
 }
 @keyframes counterRotateOut {
@@ -146,6 +149,6 @@
     rotate: -90deg;
   }
   to {
-    rotate: -270deg;
+    rotate: -80deg;
   }
 }
